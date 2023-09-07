@@ -1,0 +1,24 @@
+.notFound {
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.notFound h1,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.goBackButton {
+    cursor: pointer;
+    background-color: teal;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+}

@@ -1,7 +1,9 @@
 import "./navBar.css";
+import { Link } from "react-router-dom";
 import { userProfileImg } from "../../assets/imgs";
 
 const NavBar = () => {
+  const user = false;
   return (
     <header className="navBar">
       <div className="navBarLeft">
@@ -12,14 +14,55 @@ const NavBar = () => {
       </div>
       <div className="navBarCenter">
         <ul className="navBarList">
-          <li className="navBarListItem">Home</li>
-          <li className="navBarListItem">About</li>
-          <li className="navBarListItem">Contact</li>
-          <li className="navBarListItem">Write</li>
+          <li className="navBarListItem">
+            <Link to="/" className="link">
+              Home
+            </Link>
+          </li>
+          <li className="navBarListItem">
+            <Link to="/about" className="link">
+              About
+            </Link>
+          </li>
+          <li className="navBarListItem">
+            <Link to="/contact" className="link">
+              Contact
+            </Link>
+          </li>
+          {user && (
+            <>
+              <li className="navBarListItem">
+                <Link to="/write" className="link">
+                  Write
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
       <div className="navBarRight">
-        <img className="navBarImg" src={userProfileImg} alt="user profile" />
+        {user ? (
+          <Link className="link" to="/settings">
+            <img
+              className="navBarImg"
+              src={userProfileImg}
+              alt="user profile"
+            />
+          </Link>
+        ) : (
+          <ul className="navBarList">
+            <li className="navBarListItem">
+              <Link className="link" to="/login">
+                Login
+              </Link>
+            </li>
+            <li className="navBarListItem">
+              <Link className="link" to="/register">
+                Register
+              </Link>
+            </li>
+          </ul>
+        )}
         <i className="navBarSearchIcon fa-solid fa-magnifying-glass"></i>
       </div>
     </header>
