@@ -1,5 +1,5 @@
 import "./navBar.css";
-import userProfile from "../../assets/imgs/profile-pic.png";
+import { userProfileImg } from "../../assets/imgs";
 
 const NavBar = () => {
   return (
@@ -19,7 +19,7 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="navBarRight">
-        <img className="navBarImg" src={userProfile} alt="user profile" />
+        <img className="navBarImg" src={userProfileImg} alt="user profile" />
         <i className="navBarSearchIcon fa-solid fa-magnifying-glass"></i>
       </div>
     </header>

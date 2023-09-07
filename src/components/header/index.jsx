@@ -1,5 +1,5 @@
 import "./header.css";
-import headerImage from "../../assets/imgs/headerImage.webp";
+import { headerImg } from "../../assets/imgs";
 
 const Header = () => {
   return (
@@ -8,7 +8,7 @@ const Header = () => {
         <span className="headerTitleSm">Portfolio Project</span>
         <span className="headerTitleLg">Blog Book</span>
       </div>
-      <img className="headerImg" src={headerImage} alt="header banner" />
+      <img className="headerImg" src={headerImg} alt="header banner" />
     </section>
   );
 };

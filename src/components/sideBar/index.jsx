@@ -1,12 +1,12 @@
 import "./sideBar.css";
-import aboutMe from "../../assets/imgs/about-me.jpg";
+import { aboutMeImg } from "../../assets/imgs";
 
 const SideBar = () => {
   return (
     <aside className="sideBar">
       <div className="sideBarItem">
         <span className="sideBarTitle">ABOUT ME</span>
-        <img className="headerImg" src={aboutMe} alt="About me" />
+        <img className="headerImg" src={aboutMeImg} alt="About me" />
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam id
           quia placeat cum iusto exercitationem et officiis sapiente
