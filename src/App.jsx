@@ -1,6 +1,7 @@
 import "./assets/css/App.css";
 import NavBar from "./components/navBar";
-import Login from "./pages/Login";
+// import Login from "./pages/Login";
+import Register from "./pages/Register";
 // import Settings from "./pages/Settings";
 // import Home from "./pages/Home";
 // import Single from "./pages/Single";
@@ -10,7 +11,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <Login />
+      <Register />
     </>
   );
 }
