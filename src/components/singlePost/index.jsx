@@ -2,7 +2,7 @@ import "./singlePost.css";
 import api from "../../api";
 import { useEffect, useState } from "react";
 import { post1Img } from "../../assets/imgs";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const SinglePost = () => {
   const postId = useParams().postId;
@@ -30,7 +30,9 @@ const SinglePost = () => {
         <div className="singlePostInfo">
           <span>
             Author:
-            <b className="singlePostAuthor">{post.username} </b>
+            <Link to={`/?user=${post.username}`} className="link">
+              <b className="singlePostAuthor">{post.username} </b>
+            </Link>
           </span>
           <span>{new Date(post.createdAt).toDateString()}</span>
         </div>
