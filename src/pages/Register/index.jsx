@@ -1,36 +1,76 @@
 import "./register.css";
-import { Link } from "react-router-dom";
+import api from "../../api";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const initialValues = { username: "", email: "", password: "" };
+  const navigate = useNavigate();
+  const [value, setValue] = useState(initialValues);
+  const [error, setError] = useState(false);
+
+  const handleChange = (ev) => {
+    setValue((prevState) => {
+      return { ...prevState, [ev.target.name]: ev.target.value };
+    });
+  };
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    setError(false);
+    try {
+      const response = await api.post("/auth/register", value);
+      response.data && navigate("/login");
+    } catch (err) {
+      setError(true);
+    }
+  };
+
   return (
     <div className="register">
       <span className="registerTitle">Register</span>
-      <form className="registerForm">
+      <form className="registerForm" onSubmit={handleSubmit}>
         <label>Username</label>
         <input
-          className="registerInput"
+          required
           type="text"
+          name="username"
+          onChange={handleChange}
+          className="registerInput"
           placeholder="Enter your username..."
         />
         <label>Email</label>
         <input
-          className="registerInput"
+          required
           type="text"
+          name="email"
+          onChange={handleChange}
+          className="registerInput"
           placeholder="Enter your email..."
         />
         <label>Password</label>
         <input
-          className="registerInput"
+          required
           type="password"
+          name="password"
+          onChange={handleChange}
+          className="registerInput"
           placeholder="Enter your password..."
         />
-        <button className="registerButton">Register</button>
+        <button className="registerButton" type="submit">
+          Register
+        </button>
       </form>
       <button className="registerLoginButton">
         <Link to="/login" className="link">
           Login
         </Link>
       </button>
+      {error && (
+        <span style={{ color: "red", marginTop: "10px" }}>
+          Something went wrong!
+        </span>
+      )}
     </div>
   );
 };
