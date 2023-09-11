@@ -1,7 +1,20 @@
 import "./sideBar.css";
+import api from "../../api";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { aboutMeImg } from "../../assets/imgs";
 
 const SideBar = () => {
+  const [category, setcategory] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await api.get("/categories");
+      setcategory(response.data);
+    };
+    fetchCategories();
+  }, []);
+
   return (
     <aside className="sideBar">
       <div className="sideBarItem">
@@ -15,12 +28,11 @@ const SideBar = () => {
       <div className="sideBarItem">
         <span className="sideBarTitle">CATEGORIES</span>
         <ul className="sideBarList">
-          <li className="sideBarListItem">Life</li>
-          <li className="sideBarListItem">Music</li>
-          <li className="sideBarListItem">Sport</li>
-          <li className="sideBarListItem">Style</li>
-          <li className="sideBarListItem">Tech</li>
-          <li className="sideBarListItem">Cinema</li>
+          {category.map((item) => (
+            <Link key={item._id} to={`/?cat=${item.name}`} className="link">
+              <li className="sideBarListItem">{item.name}</li>
+            </Link>
+          ))}
         </ul>
       </div>
       <div className="sideBarItem">
