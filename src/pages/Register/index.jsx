@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const initialValues = { username: "", email: "", password: "" };
   const navigate = useNavigate();
+  const initialValues = { username: "", email: "", password: "" };
   const [value, setValue] = useState(initialValues);
   const [error, setError] = useState(false);
 
