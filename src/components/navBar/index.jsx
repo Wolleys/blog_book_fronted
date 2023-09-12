@@ -1,9 +1,22 @@
 import "./navBar.css";
+import { IMAGE_URL } from "../../api";
 import { Link } from "react-router-dom";
 import { userProfileImg } from "../../assets/imgs";
+import { useUser } from "../../context/userContext";
 
 const NavBar = () => {
-  const user = false;
+  const { user, dispatch } = useUser();
+  const profilePic = `${IMAGE_URL}${user?.profilePic}`;
+
+  const fallBackImg = (ev) => {
+    ev.onerror = null;
+    ev.currentTarget.src = userProfileImg;
+  };
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
     <header className="navBar">
       <div className="navBarLeft">
@@ -36,6 +49,9 @@ const NavBar = () => {
                   Write
                 </Link>
               </li>
+              <li className="navBarListItem" onClick={handleLogout}>
+                Logout
+              </li>
             </>
           )}
         </ul>
@@ -44,9 +60,10 @@ const NavBar = () => {
         {user ? (
           <Link className="link" to="/settings">
             <img
+              src={profilePic}
+              alt="User Profile"
               className="navBarImg"
-              src={userProfileImg}
-              alt="user profile"
+              onError={fallBackImg}
             />
           </Link>
         ) : (
