@@ -6,7 +6,7 @@ import { useUser } from "../../context/userContext";
 
 const NavBar = () => {
   const { user, dispatch } = useUser();
-  const profilePic = `${IMAGE_URL}${user?.profilePic}`;
+  const profilePic = `${IMAGE_URL}/profile/${user?.profilePic}`;
 
   const fallBackImg = (ev) => {
     ev.onerror = null;
