@@ -13,7 +13,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get(`/posts/${search}`);
-      setPosts(response.data);
+      setPosts(response?.data);
     };
     fetchData();
   }, [search]);

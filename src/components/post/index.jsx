@@ -1,10 +1,19 @@
 import "./post.css";
+import { IMAGE_URL } from "../../api";
 import { Link } from "react-router-dom";
+import { postThumbImg } from "../../assets/imgs";
 
-const Post = ({ img, post }) => {
+const Post = ({ post }) => {
+  const postImage = `${IMAGE_URL}/posts/${post?.photo}`;
+
+  const fallBackImg = (ev) => {
+    ev.onerror = null;
+    ev.currentTarget.src = postThumbImg;
+  };
+
   return (
     <div className="post">
-      <img className="postImg" src={img} alt="" />
+      <img className="postImg" src={postImage} alt="post img" onError={fallBackImg} />
       <div className="postInfo">
         <div className="postCats">
           {post.categories.map((category) => (
