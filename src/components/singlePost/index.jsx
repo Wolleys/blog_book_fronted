@@ -1,8 +1,9 @@
 import "./singlePost.css";
 import api from "../../api";
+import { IMAGE_URL } from "../../api";
 import { useEffect, useState } from "react";
-import { post1Img } from "../../assets/imgs";
 import { Link, useParams } from "react-router-dom";
+import { postPlacehoderImg } from "../../assets/imgs";
 
 const SinglePost = () => {
   const postId = useParams().postId;
@@ -16,10 +17,22 @@ const SinglePost = () => {
     fetchPost();
   }, [postId]);
 
+  const postImage = `${IMAGE_URL}/posts/${post?.photo}`;
+
+  const fallBackImg = (ev) => {
+    ev.onerror = null;
+    ev.currentTarget.src = postPlacehoderImg;
+  };
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img className="singlePostImg" src={post1Img} alt="" />
+        <img
+          src={postImage}
+          alt="single post img"
+          onError={fallBackImg}
+          className="singlePostImg"
+        />
         <h1 className="singlePostTitle">
           {post.title}
           <div className="singlePostEdit">
