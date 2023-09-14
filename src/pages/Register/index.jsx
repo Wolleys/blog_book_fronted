@@ -42,7 +42,7 @@ const Register = () => {
         <label>Email</label>
         <input
           required
-          type="text"
+          type="email"
           name="email"
           onChange={handleChange}
           className="registerInput"
