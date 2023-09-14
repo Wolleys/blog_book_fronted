@@ -5,6 +5,8 @@
 .singlePostWrapper {
     padding: 20px;
     padding-right: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .singlePostImg {
@@ -62,4 +64,52 @@
     margin-left: 20px;
     font-size: 30px;
     font-weight: 600;
+}
+
+/* Edit Mode */
+.singlePostTitleInput {
+    margin: 10px;
+    font-size: 30px;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid lightgray;
+}
+
+.singlePostTitleInput:focus {
+    outline: none;
+}
+
+.singlePostDescInput {
+    border: none;
+    color: #666;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.singlePostDescInput:focus {
+    outline: none;
+}
+
+.singlePostBtnWrapper {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.singlePostBtn {
+    width: 100px;
+    border: none;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.singlePostBtn.update {
+    background-color: teal;
+}
+
+.singlePostBtn.cancle {
+    background-color: tomato;
 }

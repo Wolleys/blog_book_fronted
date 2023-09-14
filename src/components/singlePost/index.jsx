@@ -12,10 +12,16 @@ const SinglePost = () => {
   const postId = useParams().postId;
   const [post, setPost] = useState({});
 
+  // Update post
+  const initialValues = { title: "", desc: "" };
+  const [values, setValues] = useState(initialValues);
+  const [updateMode, setUpdateMode] = useState(false);
+
   useEffect(() => {
     const fetchPost = async () => {
       const response = await api.get(`/posts/${postId}`);
-      setPost(response?.data);
+      setPost(response.data);
+      setValues(response.data);
     };
     fetchPost();
   }, [postId]);
@@ -39,6 +45,28 @@ const SinglePost = () => {
     }
   };
 
+  const handleChange = (ev) => {
+    setValues((prevState) => {
+      return { ...prevState, [ev.target.name]: ev.target.value };
+    });
+  };
+
+  const updatedPost = {
+    desc: values.desc,
+    title: values.title,
+    username: user.username,
+  };
+
+  const handleUpdate = async () => {
+    try {
+      const response = await api.put(`/posts/${postId}`, updatedPost);
+      response.data && setUpdateMode(false);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
@@ -48,18 +76,33 @@ const SinglePost = () => {
           onError={fallBackImg}
           className="singlePostImg"
         />
-        <h1 className="singlePostTitle">
-          {post.title}
-          {post.username === user?.username && (
-            <div className="singlePostEdit">
-              <i className="singlePostIcon fa-solid fa-pen-to-square"></i>
-              <i
-                className="singlePostIcon fa-regular fa-trash-can"
-                onClick={handleDelete}
-              ></i>
-            </div>
-          )}
-        </h1>
+        {updateMode ? (
+          <input
+            autoFocus
+            type="text"
+            name="title"
+            value={values.title}
+            className="singlePostTitleInput"
+            onChange={handleChange}
+          />
+        ) : (
+          <h1 className="singlePostTitle">
+            {values.title}
+            {post.username === user?.username && (
+              <div className="singlePostEdit">
+                <i
+                  className="singlePostIcon fa-solid fa-pen-to-square"
+                  onClick={() => setUpdateMode(true)}
+                ></i>
+                <i
+                  className="singlePostIcon fa-regular fa-trash-can"
+                  onClick={handleDelete}
+                ></i>
+              </div>
+            )}
+          </h1>
+        )}
+
         <div className="singlePostInfo">
           <span>
             Author:
@@ -69,7 +112,32 @@ const SinglePost = () => {
           </span>
           <span>{new Date(post.createdAt).toDateString()}</span>
         </div>
-        <p className="singlePostDesc">{post.desc}</p>
+
+        {updateMode ? (
+          <textarea
+            name="desc"
+            value={values.desc}
+            onChange={handleChange}
+            className="singlePostDescInput"
+          />
+        ) : (
+          <p className="singlePostDesc">{values.desc}</p>
+        )}
+        <>
+          {updateMode && (
+            <div className="singlePostBtnWrapper">
+              <button
+                className="singlePostBtn cancle"
+                onClick={() => setUpdateMode(false)}
+              >
+                Cancle
+              </button>
+              <button className="singlePostBtn update" onClick={handleUpdate}>
+                Update
+              </button>
+            </div>
+          )}
+        </>
       </div>
     </div>
   );
