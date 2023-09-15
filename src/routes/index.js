@@ -7,6 +7,7 @@ import Settings from "../pages/Settings";
 import Write from "../pages/Write";
 import Single from "../pages/Single";
 import NotFound from "../pages/NotFound";
+import PrivateRoute from "./privateRoute";
 
 const AppRoutes = () => {
   return (
@@ -15,8 +16,22 @@ const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/write" element={<Write />} />
+        <Route
+          path="/settings"
+          element={
+            <PrivateRoute>
+              <Settings />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/write"
+          element={
+            <PrivateRoute>
+              <Write />
+            </PrivateRoute>
+          }
+        />
         <Route path="/post/:postId" element={<Single />} />
       </Route>
       {/* Catch all undefined routes */}
