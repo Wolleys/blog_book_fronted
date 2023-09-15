@@ -2,12 +2,25 @@
     padding-top: 50px;
 }
 
+.writeImgWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .writeImg {
-    margin-left: 150px;
+    /* margin-left: 150px; */
     width: 70vw;
     height: 250px;
     border-radius: 10px;
     object-fit: cover;
+}
+
+.writeImgWrapper span{
+    height: 20px;
+    color: tomato;
+    margin-top: 10px;
 }
 
 .writeForm {
@@ -15,7 +28,7 @@
 }
 
 .writeFormGroup {
-    margin-left: 150px;
+    margin-left: 100px;
     display: flex;
     align-items: center;
 }
@@ -51,7 +64,7 @@
 
 .writeText {
     width: 70vw;
-    height: 100vh;
+    height: 40vh;
     font-family: inherit;
     font-size: 20px;
 }

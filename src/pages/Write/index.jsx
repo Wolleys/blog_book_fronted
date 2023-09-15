@@ -1,9 +1,9 @@
 import "./write.css";
 import api from "../../api";
 import { useState } from "react";
-import { post3Img } from "../../assets/imgs";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/userContext";
+import { postPlacehoderImg } from "../../assets/imgs";
 
 const Write = () => {
   const { user } = useUser();
@@ -57,13 +57,21 @@ const Write = () => {
 
   return (
     <div className="write">
-      <img className="writeImg" src={post3Img} alt="" />
+      <div className="writeImgWrapper">
+        <img
+          className="writeImg"
+          src={
+            selectedFile ? URL.createObjectURL(selectedFile) : postPlacehoderImg
+          }
+          alt=""
+        />
+        <span>{error}</span>
+      </div>
       <form className="writeForm" onSubmit={handleSubmit}>
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
             <i className="writeIcon fa-solid fa-plus"></i>
           </label>
-          {<span style={{ color: "red", marginTop: "10px" }}>{error}</span>}
           <input
             type="file"
             id="fileInput"
