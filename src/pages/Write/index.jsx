@@ -67,7 +67,7 @@ const Write = () => {
         />
         <span>{error}</span>
       </div>
-      <form className="writeForm" onSubmit={handleSubmit}>
+      <form className="writeForm" onSubmit={handleSubmit} autoComplete="off">
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
             <i className="writeIcon fa-solid fa-plus"></i>

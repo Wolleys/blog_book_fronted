@@ -31,7 +31,7 @@ const Login = () => {
   return (
     <div className="login">
       <span className="loginTitle">Login</span>
-      <form className="loginForm" onSubmit={handleSubmit}>
+      <form className="loginForm" onSubmit={handleSubmit} autoComplete="off">
         <label>Username</label>
         <input
           required

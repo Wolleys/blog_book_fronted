@@ -29,7 +29,7 @@ const Register = () => {
   return (
     <div className="register">
       <span className="registerTitle">Register</span>
-      <form className="registerForm" onSubmit={handleSubmit}>
+      <form className="registerForm" onSubmit={handleSubmit} autoComplete="off">
         <label>Username</label>
         <input
           required
