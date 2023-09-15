@@ -73,7 +73,7 @@ const Settings = () => {
           <span className="settingsTitleUpdate">Update Your Account</span>
           <span className="settingsTitleDelete">Delete Account</span>
         </div>
-        <form className="settingsForm" onSubmit={handleSubmit}>
+        <form className="settingsForm" onSubmit={handleSubmit} autoComplete="off">
           <label>Profile Picture</label>
           <div className="settingsPP">
             <img
