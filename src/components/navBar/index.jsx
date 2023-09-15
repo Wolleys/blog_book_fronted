@@ -1,10 +1,11 @@
 import "./navBar.css";
 import { IMAGE_URL } from "../../api";
-import { Link } from "react-router-dom";
 import { userProfileImg } from "../../assets/imgs";
 import { useUser } from "../../context/userContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const { user, dispatch } = useUser();
   const profilePic = `${IMAGE_URL}/profile/${user?.profilePic}`;
 
@@ -15,6 +16,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
+    navigate("/");
   };
 
   return (
