@@ -36,7 +36,7 @@ const SinglePost = () => {
   const handleDelete = async () => {
     try {
       const response = await api.delete(`/posts/${postId}`, {
-        data: { username: user.username },
+        data: { username: user?.username },
       });
       console.log(response.data);
       response.data && navigate("/");
@@ -54,7 +54,7 @@ const SinglePost = () => {
   const updatedPost = {
     desc: values.desc,
     title: values.title,
-    username: user.username,
+    username: user?.username,
   };
 
   const handleUpdate = async () => {
