@@ -101,7 +101,7 @@ const Settings = () => {
             type="text"
             name="username"
             onChange={handleChange}
-            placeholder={user.username}
+            placeholder={user?.username}
           />
           <label>Email</label>
           <input
@@ -109,7 +109,7 @@ const Settings = () => {
             type="email"
             name="email"
             onChange={handleChange}
-            placeholder={user.email}
+            placeholder={user?.email}
           />
           <label>Password</label>
           <input
