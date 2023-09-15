@@ -7,10 +7,11 @@ import { userProfileImg } from "../../assets/imgs";
 import { useUser } from "../../context/userContext";
 
 const Settings = () => {
-  const { user } = useUser();
+  const { user, dispatch } = useUser();
   const profilePic = `${IMAGE_URL}/profile/${user?.profilePic}`;
 
   const initialValues = { username: "", email: "", password: "" };
+  const [success, setSuccess] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -31,6 +32,7 @@ const Settings = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    dispatch({ type: "UPDATE_START" });
     const userId = user._id;
 
     const updatedUser = {
@@ -52,7 +54,10 @@ const Settings = () => {
     try {
       const response = await api.put(`/users/${userId}`, formData);
       console.log(response.data);
+      setSuccess(true);
+      dispatch({ type: "UPDATE_SUCCESS", payload: response.data });
     } catch (error) {
+      dispatch({ type: "UPDATE_FAILURE" });
       if (!error?.response) {
         console.log("No Server Response");
       } else if (error.response) {
@@ -116,6 +121,13 @@ const Settings = () => {
           <button className="settingsSubmitButton" type="submit">
             Update
           </button>
+          {success && (
+            <span
+              style={{ color: "green", textAlign: "center", marginTop: "20px" }}
+            >
+              Profile has been updated...
+            </span>
+          )}
         </form>
       </div>
       <SideBar />
