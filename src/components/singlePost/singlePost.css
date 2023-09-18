@@ -67,6 +67,17 @@
 }
 
 /* Edit Mode */
+.updateImgWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.updateImgWrapper span{
+    text-align: center;
+    color: tomato;
+}
+
 .singlePostTitleInput {
     margin: 10px;
     font-size: 30px;

@@ -13,6 +13,7 @@ const SinglePost = () => {
   const [post, setPost] = useState({});
 
   // Update post
+  const [error, setError] = useState();
   const initialValues = { title: "", desc: "" };
   const [values, setValues] = useState(initialValues);
   const [updateMode, setUpdateMode] = useState(false);
@@ -63,34 +64,51 @@ const SinglePost = () => {
   };
 
   const handleUpdate = async () => {
+    setError(null);
+    const formData = new FormData();
+    const filename = selectedFile?.name;
+    formData.append("title", updatedPost.title);
+    formData.append("desc", updatedPost.desc);
+    formData.append("username", updatedPost.username);
+    formData.append("post", selectedFile);
+    updatedPost.photo = filename;
+
     try {
-      const response = await api.put(`/posts/${postId}`, updatedPost);
+      const response = await api.put(`/posts/${postId}`, formData);
       response.data && setUpdateMode(false);
     } catch (error) {
-      console.log(error);
+      if (!error?.response) {
+        setError("No Server Response");
+      } else if (error.response?.data) {
+        setError(error.response?.data.error);
+      }
     }
   };
 
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        {updateMode ? (
-          <label htmlFor="fileInput">
+        <div className="updateImgWrapper">
+          {updateMode ? (
+            <label htmlFor="fileInput">
+              <img
+                src={
+                  selectedFile ? URL.createObjectURL(selectedFile) : postImage
+                }
+                alt="single post img"
+                className="singlePostImg"
+              />
+            </label>
+          ) : (
             <img
-              src={selectedFile ? URL.createObjectURL(selectedFile) : postImage}
+              src={postImage}
               alt="single post img"
+              onError={fallBackImg}
               className="singlePostImg"
             />
-          </label>
-        ) : (
-          <img
-            src={postImage}
-            alt="single post img"
-            onError={fallBackImg}
-            className="singlePostImg"
-          />
-        )}
-
+          )}
+          <span>{error}</span>
+        </div>
         <input
           type="file"
           id="fileInput"
