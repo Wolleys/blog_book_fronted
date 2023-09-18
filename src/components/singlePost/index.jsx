@@ -16,6 +16,7 @@ const SinglePost = () => {
   const initialValues = { title: "", desc: "" };
   const [values, setValues] = useState(initialValues);
   const [updateMode, setUpdateMode] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -51,6 +52,10 @@ const SinglePost = () => {
     });
   };
 
+  const handleFileChange = (ev) => {
+    setSelectedFile(ev.target.files[0]);
+  };
+
   const updatedPost = {
     desc: values.desc,
     title: values.title,
@@ -61,7 +66,6 @@ const SinglePost = () => {
     try {
       const response = await api.put(`/posts/${postId}`, updatedPost);
       response.data && setUpdateMode(false);
-      
     } catch (error) {
       console.log(error);
     }
@@ -70,11 +74,29 @@ const SinglePost = () => {
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img
-          src={postImage}
-          alt="single post img"
-          onError={fallBackImg}
-          className="singlePostImg"
+        {updateMode ? (
+          <label htmlFor="fileInput">
+            <img
+              src={selectedFile ? URL.createObjectURL(selectedFile) : postImage}
+              alt="single post img"
+              className="singlePostImg"
+            />
+          </label>
+        ) : (
+          <img
+            src={postImage}
+            alt="single post img"
+            onError={fallBackImg}
+            className="singlePostImg"
+          />
+        )}
+
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={handleFileChange}
         />
         {updateMode ? (
           <input
